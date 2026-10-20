@@ -1,5 +1,5 @@
 function gethumanchoice(){
-    let humaninput= prompt("Rock,paper or scissor?: ");
+    let humaninput= " ";
     return humaninput.toUpperCase();
 }
 
@@ -13,41 +13,82 @@ function getcomputerChoice(){
         return"SCISSOR";
     }
 }
+    const body0= document.querySelector('body')
+    const btn1 = document.createElement('button')
+    btn1.textContent= 'ROCK'
+    const btn2 = document.createElement('button')
+    btn2.textContent= 'PAPER'
+    const btn3 = document.createElement('button')
+    btn3.textContent= 'SCISSOR'
 
-
+    body0.appendChild(btn1)
+    body0.appendChild(btn2)
+    body0.appendChild(btn3)
+    const display = document.createElement('div')
+    body0.appendChild(display)
 function playGame(){
     
     
     let computerScore= 0;
     let humanScore = 0;
-
+    let gameover= false
+        const scorehum = document.createElement('p')
+        const scorecomp=document.createElement('p')
     function playRound(humanChoice,computerChoice){
+        
+        const human= document.createElement('p')
+        human.textContent= `The human choice is : ${humanChoice}`
+        const comp = document.createElement('p')
+        comp.textContent= `The  computer choice is: ${computerChoice}`
+        display.appendChild(human)
+        display.appendChild(comp)
+        const tie = document.createElement('p')
+        const winhum= document.createElement('p')
+        const wincomp= document.createElement('p')
 
-    console.log(`The human choice is : ${humanChoice}`)
-    console.log(`The  computer choice is: ${computerChoice}`)
     if (humanChoice===computerChoice){
-        console.log("It's a Tie");
+        tie.textContent= "It's a Tie";
+        display.appendChild(tie)
         
     }else if(humanChoice==="PAPER" && computerChoice ==="ROCK"||
         humanChoice==="ROCK" && computerChoice ==="SCISSOR"||
         humanChoice==="SCISSOR" && computerChoice ==="PAPER"
     ){
-        console.log("It's a human win");
+        winhum.textContent="It's a human win";
+        display.appendChild(winhum)
         humanScore++;
     }else if(computerChoice==="PAPER" && humanChoice ==="ROCK"||
         computerChoice==="ROCK" && humanChoice ==="SCISSOR"||
         computerChoice==="SCISSOR" && humanChoice==="PAPER"
     ){
-        console.log("The computer win");
+        wincomp.textContent="The computer win";
+        display.appendChild(wincomp)
         computerScore++;
     }
+        if (humanScore ===5 || computerScore ===5){
+        scorehum.textContent=`The human score is: ${humanScore}`
+        display.appendChild(scorehum)
+        scorecomp.textContent=`The computer score is: ${computerScore}`
+        scorecomp.style.color='blue'
+        display.appendChild(scorecomp)
+    }
+    if (gameover){
+        return;
+    }
+
 }
 
-for (let i=0;i<5;i++){
-    playRound(gethumanchoice(),getcomputerChoice())
-}
- console.log(`The human score is: ${humanScore}`)
-  console.log(`The computer score is: ${computerScore}`)
+
+    btn1.addEventListener('click',()=>{
+        playRound('ROCK',getcomputerChoice());
+        ;
+    })
+    btn2.addEventListener('click',()=>{
+        playRound('PAPER',getcomputerChoice());
+    })
+    btn3.addEventListener('click',()=>{
+        playRound('SCISSOR',getcomputerChoice());
+    })
 
 }
 playGame()
